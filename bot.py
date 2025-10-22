@@ -32,10 +32,10 @@ def start_cmd(message):
 
     bot.send_message(
         user_id,
-        f" Olá, *{first_name}*!\n\n"
-        f"Resolva este captcha.:\n"
-        f" Quanto é *{a} + {b}?*\n\n"
-        f"Envie apenas o número como resposta."
+        f" Hello, *{first_name}*!\n\n"
+        f"Solve this captcha.:\n"
+        f" How much is *{a} + {b}?*\n\n"
+        f"Just send the number as a reply."
     )
     logging.info(f"Captcha enviado para {user_id}, resposta={result}")
 
@@ -48,7 +48,7 @@ def check_captcha(message):
     try:
         answer = int(text)
     except ValueError:
-        bot.send_message(user_id, "Por favor, envie apenas números.")
+        bot.send_message(user_id, "Please send numbers only.")
         return
 
     correct = captcha_data[user_id]
@@ -63,17 +63,17 @@ def check_captcha(message):
             )
             bot.send_message(
                 user_id,
-                f" Bem-vindo..\n\n👉 {invite.invite_link} válido 1 min / 1 uso"
+                f" Welcome..\n\n👉 {invite.invite_link} valid 1 min / 1 use"
             )
             logging.info(f"Link criado para {user_id}: {invite.invite_link}")
 
         except Exception as e:
-            bot.send_message(user_id, "Erro ao gerar o link. Tente novamente mais tarde.")
-            logging.error(f"Erro ao criar link: {e}")
+            bot.send_message(user_id, "Error generating link. Please try again later.")
+            logging.error(f"Error creating link: {e}")
 
     else:
-        bot.send_message(user_id, "incorreto. Envie /start para tentar novamente.")
-        logging.info(f"User {user_id} errou o captcha.")
+        bot.send_message(user_id, "incorrect. Send /start to try again.")
+        logging.info(f"User {user_id} failed captcha.")
 
     captcha_data.pop(user_id, None)
 
